@@ -33,6 +33,14 @@ app.put('/parkings/:id', (req,res) => {
     res.status(200).json(parking)
 })
 
+app.delete('/parkings/:id', (req,res) => {
+    const id = parseInt(req.params.id)
+    let parking = parkings.find(parking => parking.id === id)
+    parkings.splice(parkings.indexOf(parking),1)
+    res.status(200).json(parkings)
+})
+
+
 
 
 app.listen(3000,() => {
