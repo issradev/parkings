@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp1
+spec:
+  replicas: 6
+  selector:
+    matchLabels:
+      app: parkingmanager
+  template:
+    metadata:
+      labels:
+        app: parkingmanager
+    spec:
+      containers:
+      - name: parkingmanager
+        image: issra/parkings
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 3000
