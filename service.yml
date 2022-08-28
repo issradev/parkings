@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: myapp2
+spec:
+  selector:
+    app: parkingmanager
+  ports:
+  - port: 8080
+    targetPort: 3000
