@@ -5,7 +5,7 @@ FROM node:alpine
 WORKDIR /APP
 
 #COPY
-COPY package*.JSON/package-lock.json parkings.json ./
+COPY package*.json  parkings.json ./
 
 
 #RUN NPM
@@ -17,4 +17,4 @@ COPY . ./
 
 #RUN SERVER
 EXPOSE 3000
-CMD ["NODE", "INDEX.JS"]
+CMD ["node", "index.js"]

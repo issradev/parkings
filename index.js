@@ -2,9 +2,43 @@ const  express = require('express')
 const app = express ()
 const parkings=require('./parkings.json')
 
+const mongo = require("mongodb").MongoClient
+const url = 'mongodb://mongo:27017';
+let db, parking
+ mongo.connect(
+    url,
+    {
+    userNewUrlParser: true,
+    useUnifiedTopology: true,
+    },
+    (err, client) => {
+        if (err) {
+          console.error(err)
+          return
+        }
+        db = client.db("parkings")
+        parking = db.collection("parking")
+       console.log(parking)
+      }
+ )
+
+
 
 // Middleware
 app.use(express.json())
+
+app.get("/parking", (req, res) => {  
+  console.log(parking)
+    parking.insertOne({ name: "parking3",type:"Area", city:"Bizerte", id:4 })
+      parking.find().toArray((err, items) => {
+        if (err) {
+          console.error(err)
+          res.status(500).json({ err: err })
+          return
+        }
+        res.status(200).json({ parking: items })
+      })
+    })
 
 
 app.get('/parkings',(req,res) => {
@@ -46,3 +80,4 @@ app.delete('/parkings/:id', (req,res) => {
 app.listen(3000,() => {
     console.log('serveur a l écoute')
 })
+module.exports = app;

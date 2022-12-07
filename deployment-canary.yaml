@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-canary
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: web-hello
+      version: 2.0.0
+  template:
+    metadata:
+      labels:
+        app: k8s-web-hello
+        version: 2.0.0
+        track: canary
+    spec:
+      containers:
+      - name: k8s-web-hello
+        image: "issra/parkings:2.0.0"
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "250m"
+        ports:
+        - containerPort: 3000
